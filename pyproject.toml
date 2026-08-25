@@ -1,0 +1,46 @@
+# ==========================================
+# Multicare HMS - Python tooling configuration
+# ==========================================
+
+[tool.black]
+line-length = 100
+target-version = ['py312']
+extend-exclude = '''
+/(
+    migrations
+  | venv
+  | staticfiles
+)/
+'''
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+extend-exclude = [
+    "migrations",
+    "venv",
+    "staticfiles",
+]
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort (import ordering)
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "UP",  # pyupgrade
+]
+ignore = [
+    "E501",  # line too long (Black handles this)
+    "B008",  # do not perform function calls in argument defaults (Django uses this pattern)
+    "DJ012", # Django model method order (cosmetic; skip)
+]
+
+[tool.ruff.lint.per-file-ignores]
+"*/migrations/*" = ["E", "W", "F", "I", "UP"]
+"*/settings.py" = ["F405"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["accounts", "core", "patients", "doctors", "appointments"]
